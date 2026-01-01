@@ -29,6 +29,8 @@ async function getOSSClient() {
     accessKeyId: config.accessKeyId,
     accessKeySecret: config.accessKeySecret,
     bucket: config.bucket,
+    timeout: 600000, // 10 分钟超时
+    retryMax: 3, // 重试 3 次
   });
   
   console.log(`[OSS] 配置已从接口获取，bucket: ${config.bucket}, region: ${config.region}`);
@@ -87,7 +89,9 @@ async function loopDownloadSingleFile(concurrency = 100, workerId = 1, maxRuntim
           console.log(`[线程 ${workerId}] 下载次数: ${downloadCount}, 总流量: ${totalGB}GB, 速度: ${speedMBps}MB/s`);
         }
       } catch (error) {
-        // 静默处理错误，继续下载
+        // 遇到错误等待 1 秒后继续
+        console.log(`[线程 ${workerId}] 下载出错，1秒后重试: ${error.message}`);
+        await new Promise(r => setTimeout(r, 1000));
       }
     }
   };
