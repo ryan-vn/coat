@@ -1,0 +1,34 @@
+name: OSS 流量压测
+
+on:
+  schedule:
+    # 每 30 分钟运行一次
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 运行下载脚本
+        env:
+          OSS_CONFIG_API: ${{ secrets.OSS_CONFIG_API }}
+          MAX_RUNTIME_MINUTES: '25'
+          WORKER_COUNT: '1'
+          CONCURRENCY_PER_WORKER: '50'
+        run: npm run start
+
