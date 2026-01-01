@@ -1,7 +1,7 @@
 import OSS from 'ali-oss';
 
 // OSS 配置接口地址
-const OSS_CONFIG_API = process.env.OSS_CONFIG_API || 'https://your-api-domain.com/index.php';
+const OSS_CONFIG_API = 'https://auction-api.wekic.com/index.php';
 
 // 从接口获取 OSS 配置
 async function getOSSConfig() {
