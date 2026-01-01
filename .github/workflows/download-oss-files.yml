@@ -26,7 +26,6 @@ jobs:
 
       - name: 运行下载脚本
         env:
-          OSS_CONFIG_API: ${{ secrets.OSS_CONFIG_API }}
           MAX_RUNTIME_MINUTES: '25'
           WORKER_COUNT: '1'
           CONCURRENCY_PER_WORKER: '50'
