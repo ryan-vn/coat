@@ -27,6 +27,6 @@ jobs:
         env:
           MAX_RUNTIME_MINUTES: '25'
           WORKER_COUNT: '1'
-          CONCURRENCY_PER_WORKER: '50'
+          CONCURRENCY_PER_WORKER: '5'
         run: npm run start
 
