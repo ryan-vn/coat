@@ -3,6 +3,8 @@ consoel.log("23");
 // OSS 配置接口地址
 const OSS_CONFIG_API = 'https://auction-api.wekic.com/index.php';
 
+console.log
+
 // 从接口获取 OSS 配置
 async function getOSSConfig() {
   const response = await fetch(OSS_CONFIG_API);
